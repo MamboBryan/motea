@@ -14,7 +14,26 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.dsl.module
 
+val remoteModule = module {
+    single<HttpClient> {
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json {
+                    encodeDefaults = false
+                    ignoreUnknownKeys = true
+                })
+            }
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.BODY
+            }
+
+        }
+    }
+    single<CharacterRemoteSource> { CharactersRemoteSourceImpl(client = get()) }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)

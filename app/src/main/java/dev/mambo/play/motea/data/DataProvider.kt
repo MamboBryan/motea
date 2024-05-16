@@ -7,6 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import dev.mambo.play.motea.data.characters.CharactersRepository
 import dev.mambo.play.motea.data.characters.CharactersRepositoryImpl
 import dev.mambo.play.motea.sources.remote.characters.CharacterRemoteSource
+import org.koin.dsl.module
+
+val dataModule = module {
+    single<CharactersRepository> { CharactersRepositoryImpl(remoteSource = get()) }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)

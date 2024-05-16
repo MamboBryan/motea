@@ -93,6 +93,11 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.dagger.hilt.compiler)
 
+    // koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     // realm
 //    implementation(libs.bundles.realm)
 
