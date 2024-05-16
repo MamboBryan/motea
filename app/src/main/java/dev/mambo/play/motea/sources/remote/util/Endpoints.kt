@@ -10,4 +10,6 @@ sealed class Endpoints(private val path: String) {
 
     data object Characters : Endpoints(path = "characters")
 
+    data class Character(val id: Int) : Endpoints(path = "characters/$id")
+
 }

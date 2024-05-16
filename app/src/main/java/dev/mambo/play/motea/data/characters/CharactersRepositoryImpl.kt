@@ -9,7 +9,7 @@ import dev.mambo.play.motea.sources.remote.util.NetworkResult
 class CharactersRepositoryImpl(
     private val remoteSource: CharacterRemoteSource
 ) : CharactersRepository {
-
+    
     override suspend fun getCharacters(): DataResult<List<CharacterDomain>> {
         return when (val result = remoteSource.getCharacters()) {
             is NetworkResult.Error -> DataResult.Error(message = result.message)
