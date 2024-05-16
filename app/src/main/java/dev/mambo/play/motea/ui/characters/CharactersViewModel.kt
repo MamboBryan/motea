@@ -7,6 +7,7 @@ import dev.mambo.play.motea.data.models.CharacterDomain
 import dev.mambo.play.motea.data.util.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface ListState<out T> {
@@ -34,7 +35,7 @@ class CharactersViewModel(
     fun getCharacters() {
         viewModelScope.launch {
             val result = repository.getCharacters()
-            when (result) {
+            val listState = when (result) {
                 is DataResult.Error -> ListState.Error(message = result.message)
                 is DataResult.Success -> {
                     val data = result.data
@@ -44,6 +45,8 @@ class CharactersViewModel(
                         ListState.Success(list = data)
                 }
             }
+
+            _state.update { it.copy(list = listState) }
         }
     }
 
