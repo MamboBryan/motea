@@ -1,5 +1,6 @@
 package dev.mambo.play.motea.data.characters
 
+import dagger.Binds
 import dev.mambo.play.motea.data.models.CharacterDomain
 import dev.mambo.play.motea.data.models.toDomain
 import dev.mambo.play.motea.data.util.DataResult

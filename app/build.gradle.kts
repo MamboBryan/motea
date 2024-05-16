@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
-//    alias(libs.plugins.android.hilt)
+    alias(libs.plugins.android.hilt)
 //    alias(libs.plugins.realm)
 }
 
@@ -89,9 +89,9 @@ dependencies {
     implementation(libs.bundles.coil)
 
     // hilt
-//    implementation(libs.bundles.hilt)
-//    ksp(libs.androidx.hilt.compiler)
-//    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.bundles.hilt)
+    ksp(libs.androidx.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     // realm
 //    implementation(libs.bundles.realm)

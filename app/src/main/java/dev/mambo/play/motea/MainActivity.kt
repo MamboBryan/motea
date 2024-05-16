@@ -4,16 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,14 +28,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.mambo.play.motea.ui.UiProvider
+import dagger.hilt.android.AndroidEntryPoint
 import dev.mambo.play.motea.ui.characters.CharactersViewModel
 import dev.mambo.play.motea.ui.characters.ListState
 import dev.mambo.play.motea.ui.theme.MoteaTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel: CharactersViewModel = UiProvider.charactersViewModel
+    val viewModel: CharactersViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +61,16 @@ class MainActivity : ComponentActivity() {
 
                             is ListState.Error -> {
                                 CenteredColumn(modifier = Modifier.fillMaxSize()) {
-                                    Text(text = data.message)
+                                    Text(
+                                        text = data.message,
+                                        modifier = Modifier.fillMaxWidth(0.6f)
+                                    )
+                                    IconButton(onClick = viewModel::onClickRetry) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.Refresh,
+                                            contentDescription = "retry"
+                                        )
+                                    }
                                 }
                             }
 
